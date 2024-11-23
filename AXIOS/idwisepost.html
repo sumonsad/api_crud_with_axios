@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Post by ID</title>
+    <link rel="stylesheet" href="css/milligram.css">
+</head>
+<body>
+  <div class="container">
+    <label for="postId">Post ID</label>
+    <input type="number" id="postId" placeholder="Enter Post ID" />
+    <button id="fetchPostBtn">Fetch Post</button>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Body</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td id="postIdCell"></td>
+            <td id="postTitle"></td>
+            <td id="postBody"></td>
+          </tr> 
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="js/axios.min.js"></script>
+
+  <script>
+    // Data Fetching
+    document.getElementById('fetchPostBtn').addEventListener('click', function() {
+        // Get the post ID from the input field
+        const id = document.getElementById('postId').value;
+
+        // Validate if the post ID is provided
+        if (!id) {
+            alert("Please enter a post ID");
+            return;
+        }
+
+        // Show a loader (optional: You can add a visual loader here if desired)
+        // document.getElementById('loader').classList.remove('d-none');
+
+        // Make the GET request to the Laravel API with dynamic ID
+        axios.get(`http://127.0.0.1:8000/api/post/${id}`)
+            .then(response => {
+                // Hide the loader after fetching data (optional)
+                // document.getElementById('loader').classList.add('d-none');
+
+                const data = response.data.data; // The actual data is inside `data` object
+
+                if (data) {
+                    // Update the UI with the fetched post data
+                    document.getElementById('postIdCell').textContent = data.id;
+                    document.getElementById('postTitle').textContent = data.title;
+                    document.getElementById('postBody').textContent = data.body;
+                } else {
+                    alert("Post not found.");
+                }
+            })
+            .catch(error => {
+                // Handle error: display message
+                // document.getElementById('loader').classList.add('d-none');
+                console.error('Error fetching post:', error);
+
+                if (error.response && error.response.status === 404) {
+                    alert("Post not found.");
+                } else {
+                    alert("There was an error fetching the post.");
+                }
+            });
+    });
+  </script>
+
+</body>
+</html>

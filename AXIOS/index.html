@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/milligram.css">
+</head>
+<body>
+  <div id="loader" class="loading d-none">
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <a href="create.html" class="button button-outline float-left">Create New</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <table>
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Title</th>
+          <th>Body</th>
+        </tr>
+        </thead>
+        <tbody id="itemList">
+
+          <!---Ajax Data Bind--->
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <script src="js/axios.min.js"></script>
+
+  <script>
+
+
+    // Data Read
+    async function getList(){
+        let URL="http://127.0.0.1:8000/api/posts"
+        let res= await axios.get(URL)
+        let data=res.data['data']
+        data.forEach((item)=>{
+            document.getElementById('itemList').innerHTML+=(`
+                <tr>
+                    <td>${item['id']}</td>
+                    <td>${item['title']}</td>
+                    <td>${item['body']}</td>
+                <tr>
+            `)
+        })
+    }
+    getList();
+
+
+    // Data Delete
+    async function deleteItem(id){
+      let URL=`https://crud.teamrabbil.com/api/v1/DeleteProduct/${id}`
+      let res= await axios.get(URL)
+      document.getElementById('itemList').innerHTML=""
+      await getList();
+    }
+
+
+    function goUpdatePage(id) {
+        window.location=`update.html?id=${id}`
+    }
+
+
+
+
+
+
+
+
+  </script>
+
+
+
+</body>
+</html>

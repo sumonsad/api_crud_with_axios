@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/milligram.css">
+</head>
+<body>
+<div id="loader" class="loading d-none">
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="column">
+            <label>Title</label>
+            <input id="title" type="text">
+            <label>body</label>
+            <input id="body" type="text">
+            <button onclick="CreateData()">Submit</button>
+        </div>
+    </div>
+</div>
+
+
+<script src="js/axios.min.js"></script>
+
+
+<script>
+    async function CreateData(){
+        let postTitle=document.getElementById('title').value;
+        let postBody=document.getElementById('body').value;
+        let Obj={
+            "title":postTitle,
+            "body":postBody,
+        }
+
+        let URL='http://127.0.0.1:8000/api/posts'
+        let res=await axios.post(URL,Obj)
+        window.location="posts.html"
+
+    }
+</script>
+
+
+
+</body>
+</html>

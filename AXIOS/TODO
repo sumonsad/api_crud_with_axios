@@ -1,0 +1,37 @@
+1. Project Overview
+2. Project Setup
+3. Html File Structure
+4. What is Ajax->axios
+5. We Need demo call data for practice
+6. AJAX Front End CRUD=> Create,Read,Update,Delete
+
+7. R=Read
+https://crud.teamrabbil.com/api/v1/ReadProduct
+
+
+8. D=Delete
+https://crud.teamrabbil.com/api/v1/ReadProduct
+
+
+9. C=Create
+https://crud.teamrabbil.com/api/v1/CreateProduct
+{
+"Img":"",
+"ProductCode":"",
+"ProductName":"",
+"Qty":"",
+"TotalPrice":"",
+"UnitPrice":""
+}
+
+
+10. U=Update
+https://crud.teamrabbil.com/api/v1/UpdateProduct/{6395ce12187245c05d68da82}
+{
+"Img":"",
+"ProductCode":"",
+"ProductName":"",
+"Qty":"",
+"TotalPrice":"",
+"UnitPrice":""
+}
